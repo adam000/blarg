@@ -1,9 +1,10 @@
 package blarg
 
 import (
+	"bytes"
 	"fmt"
 	"html/template"
-	"io/ioutil"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
@@ -59,6 +60,12 @@ func (p DiskBasedProvider) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if strings.EqualFold(pathRelative, "/changelog") {
+		log.Printf("Serving up changelog")
+		p.serveChangelog(w, r)
+		return
+	}
+
 	log.Printf("Looking for file at '%s' (absolute path: '%s')", pathRelative, pathAbsolute)
 	if exists, _ := Exists(pathAbsolute); !exists {
 		mdPath := pathAbsolute + ".md"
@@ -81,8 +88,44 @@ func (p DiskBasedProvider) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, pathAbsolute)
 }
 
+func (p DiskBasedProvider) serveChangelog(w http.ResponseWriter, r *http.Request) {
+	var output bytes.Buffer
+	err := filepath.WalkDir("/app/blarg/changelog", func(path string, d fs.DirEntry, e error) error {
+		if e != nil {
+			return e
+		}
+		if !d.IsDir() && d.Name() != "TEMPLATE.md" {
+			bytes, err := os.ReadFile(path)
+			if err != nil {
+				return err
+			}
+			output.Write(bytes)
+		}
+		return nil
+	})
+
+	if err != nil {
+		fmt.Fprintf(w, "%s", err)
+		return
+	}
+
+	htmlResult := template.HTML(bluemonday.UGCPolicy().SanitizeBytes(blackfriday.MarkdownCommon(output.Bytes())))
+
+	// TODO some of this is specific to my website. Abstract it out.
+	var page = page.NewPage()
+	page.SetTitle("Blarg")
+	page.AddCSSFiles(
+		"/static/css/base.css",
+		"/static/css/header.css",
+		"/static/css/blarg-file.css",
+	)
+	page.AddVar("Content", htmlResult)
+	page.AddVar("FileName", "Changelog")
+	p.templates.ExecuteTemplate(w, "page_blarg_file.html", page)
+}
+
 func (p DiskBasedProvider) serveMd(w http.ResponseWriter, r *http.Request, mdPath string) {
-	markdown, err := ioutil.ReadFile(mdPath)
+	markdown, err := os.ReadFile(mdPath)
 	if err != nil {
 		log.Printf("Error reading MD file: %s", markdown)
 		p.errorHandler(w, r, http.StatusInternalServerError)
