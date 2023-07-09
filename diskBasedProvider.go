@@ -110,13 +110,13 @@ func (p DiskBasedProvider) serveChangelog(w http.ResponseWriter, r *http.Request
 	}
 
 	for i := len(paths) - 1; i >= 0; i-- {
-		log.Printf("%s", paths[i])
 		bytes, err := os.ReadFile(paths[i])
 		if err != nil {
 			fmt.Fprintf(w, "%s", err)
 			return
 		}
 		output.Write(bytes)
+		output.Write([]byte{10, 10})
 	}
 
 	htmlResult := template.HTML(bluemonday.UGCPolicy().SanitizeBytes(blackfriday.MarkdownCommon(output.Bytes())))
