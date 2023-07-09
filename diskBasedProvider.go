@@ -91,23 +91,15 @@ func (p DiskBasedProvider) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func (p DiskBasedProvider) serveChangelog(w http.ResponseWriter, r *http.Request) {
 	var output bytes.Buffer
+	paths := make([]string, 0)
 	err := filepath.WalkDir("/app/blarg/changelog", func(path string, d fs.DirEntry, e error) error {
 		if e != nil {
 			return e
 		}
-		paths := make([]string, 0)
 		if !d.IsDir() && d.Name() != "TEMPLATE.md" {
 			// Queue the names of files and then print them in reverse so that
 			// it prints from oldest to newest.
 			paths = append(paths, path)
-		}
-		for i := len(paths) - 1; i >= 0; i-- {
-			log.Printf("%s", paths[i])
-			bytes, err := os.ReadFile(paths[i])
-			if err != nil {
-				return err
-			}
-			output.Write(bytes)
 		}
 		return nil
 	})
@@ -115,6 +107,16 @@ func (p DiskBasedProvider) serveChangelog(w http.ResponseWriter, r *http.Request
 	if err != nil {
 		fmt.Fprintf(w, "%s", err)
 		return
+	}
+
+	for i := len(paths) - 1; i >= 0; i-- {
+		log.Printf("%s", paths[i])
+		bytes, err := os.ReadFile(paths[i])
+		if err != nil {
+			fmt.Fprintf(w, "%s", err)
+			return
+		}
+		output.Write(bytes)
 	}
 
 	htmlResult := template.HTML(bluemonday.UGCPolicy().SanitizeBytes(blackfriday.MarkdownCommon(output.Bytes())))
