@@ -94,8 +94,14 @@ func (p DiskBasedProvider) serveChangelog(w http.ResponseWriter, r *http.Request
 		if e != nil {
 			return e
 		}
+		paths := make([]string, 0)
 		if !d.IsDir() && d.Name() != "TEMPLATE.md" {
-			bytes, err := os.ReadFile(path)
+			// Queue the names of files and then print them in reverse so that
+			// it prints from oldest to newest.
+			paths = append(paths, path)
+		}
+		for i := len(paths) - 1; i >= 0; i-- {
+			bytes, err := os.ReadFile(paths[i])
 			if err != nil {
 				return err
 			}
