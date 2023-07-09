@@ -2,6 +2,7 @@ package blarg
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"html/template"
 	"io/fs"
@@ -101,6 +102,7 @@ func (p DiskBasedProvider) serveChangelog(w http.ResponseWriter, r *http.Request
 			paths = append(paths, path)
 		}
 		for i := len(paths) - 1; i >= 0; i-- {
+			log.Printf("%s", paths[i])
 			bytes, err := os.ReadFile(paths[i])
 			if err != nil {
 				return err
@@ -154,13 +156,7 @@ func (p DiskBasedProvider) serveMd(w http.ResponseWriter, r *http.Request, mdPat
 
 func Exists(path string) (bool, error) {
 	_, err := os.Stat(path)
-	if err == nil {
-		return true, nil
-	}
-	if os.IsNotExist(err) {
-		return false, nil
-	}
-	return true, err
+	return !errors.Is(err, fs.ErrNotExist), err
 }
 
 func IsDir(path string) (bool, error) {
