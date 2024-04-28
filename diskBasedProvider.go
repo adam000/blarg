@@ -92,7 +92,7 @@ func (p DiskBasedProvider) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (p DiskBasedProvider) serveChangelog(w http.ResponseWriter, r *http.Request) {
 	var output bytes.Buffer
 	paths := make([]string, 0)
-	err := filepath.WalkDir("/app/blarg/changelog", func(path string, d fs.DirEntry, e error) error {
+	err := filepath.WalkDir("blarg/changelog", func(path string, d fs.DirEntry, e error) error {
 		if e != nil {
 			return e
 		}
@@ -105,14 +105,16 @@ func (p DiskBasedProvider) serveChangelog(w http.ResponseWriter, r *http.Request
 	})
 
 	if err != nil {
-		fmt.Fprintf(w, "%s", err)
+		log.Printf("%s", err)
+		p.errorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
 
 	for i := len(paths) - 1; i >= 0; i-- {
 		bytes, err := os.ReadFile(paths[i])
 		if err != nil {
-			fmt.Fprintf(w, "%s", err)
+			log.Printf("%s", err)
+			p.errorHandler(w, r, http.StatusInternalServerError)
 			return
 		}
 		output.Write(bytes)
