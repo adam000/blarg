@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	cloud.google.com/go/datastore v1.12.0
-	github.com/adam000/goutils v0.7.0
+	github.com/adam000/goutils v0.9.0
 	github.com/microcosm-cc/bluemonday v1.0.24
 	github.com/russross/blackfriday v1.6.0
 )

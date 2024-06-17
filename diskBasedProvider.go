@@ -126,7 +126,7 @@ func (p DiskBasedProvider) serveChangelog(w http.ResponseWriter, r *http.Request
 	// TODO some of this is specific to my website. Abstract it out.
 	var page = page.NewPage()
 	page.SetTitle("Blarg")
-	page.AddCSSFiles(
+	page.AddCssFiles(
 		"/static/css/base.css",
 		"/static/css/header.css",
 		"/static/css/blarg-file.css",
@@ -148,7 +148,7 @@ func (p DiskBasedProvider) serveMd(w http.ResponseWriter, r *http.Request, mdPat
 	// TODO some of this is specific to my website. Abstract it out.
 	var page = page.NewPage()
 	page.SetTitle("Blarg")
-	page.AddCSSFiles(
+	page.AddCssFiles(
 		"/static/css/base.css",
 		"/static/css/header.css",
 		"/static/css/blarg-file.css",
