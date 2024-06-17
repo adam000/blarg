@@ -79,6 +79,8 @@ func (p DatastoreProvider) serveMd(w http.ResponseWriter, r *http.Request, markd
 		"/static/css/base.css",
 		"/static/css/header.css",
 		"/static/css/blarg-file.css",
+		"https://fonts.googleapis.com/css?family=Inconsolata:400,700",
+		"https://fonts.googleapis.com/css?family=Roboto",
 	)
 	page.AddVar("Content", htmlResult)
 	// TODO

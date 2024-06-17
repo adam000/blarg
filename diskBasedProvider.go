@@ -131,6 +131,8 @@ func (p DiskBasedProvider) serveChangelog(w http.ResponseWriter, r *http.Request
 		"/static/css/base.css",
 		"/static/css/header.css",
 		"/static/css/blarg-file.css",
+		"https://fonts.googleapis.com/css?family=Inconsolata:400,700",
+		"https://fonts.googleapis.com/css?family=Roboto",
 	)
 	page.AddVar("Content", htmlResult)
 	page.AddVar("FileName", "Changelog")
@@ -154,6 +156,8 @@ func (p DiskBasedProvider) serveMd(w http.ResponseWriter, r *http.Request, mdPat
 		"/static/css/base.css",
 		"/static/css/header.css",
 		"/static/css/blarg-file.css",
+		"https://fonts.googleapis.com/css?family=Inconsolata:400,700",
+		"https://fonts.googleapis.com/css?family=Roboto",
 	)
 	page.AddVar("Content", htmlResult)
 	page.AddVar("FileName", strings.TrimSuffix(filepath.Base(mdPath), filepath.Ext(mdPath)))
