@@ -9,8 +9,8 @@ cloud.google.com/go/compute/metadata v0.2.3/go.mod h1:VAV5nSsACxMJvgaAuX6Pk2Aawl
 cloud.google.com/go/datastore v1.12.0 h1:e713dRZv/yyGRHJ4MQLhAcuxlSzqXlYvEYFMKM7q0u4=
 cloud.google.com/go/datastore v1.12.0/go.mod h1:KjdB88W897MRITkvWWJrg2OUtrR5XVj1EoLgSp6/N70=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/adam000/goutils v0.9.0 h1:EDf5nBRJsuPqi/aLdM9v4WBQhixvd5+fhqlrBSIO/CU=
-github.com/adam000/goutils v0.9.0/go.mod h1:DYMOwiEQ647eUOePkIez0+1EBRk6XpGG0T+6uhh/APQ=
+github.com/adam000/goutils v0.9.1 h1:hhHn7U9MMLCOVxQS2o4yeXoJr+F2f7TwNt4OBbqSseI=
+github.com/adam000/goutils v0.9.1/go.mod h1:DYMOwiEQ647eUOePkIez0+1EBRk6XpGG0T+6uhh/APQ=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/aymerick/douceur v0.2.0 h1:Mv+mAeH1Q+n9Fr+oyamOlAkUNPWPlA8PPGR0QAaYuPk=
 github.com/aymerick/douceur v0.2.0/go.mod h1:wlT5vV2O3h55X9m7iVYN0TBM0NH/MmbLnd30/FjWUq4=
