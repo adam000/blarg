@@ -1,6 +1,6 @@
 module github.com/adam000/blarg
 
-go 1.20
+go 1.24.1
 
 require (
 	cloud.google.com/go/datastore v1.12.0
