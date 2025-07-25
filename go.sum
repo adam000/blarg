@@ -1,5 +1,5 @@
-github.com/adam000/goutils v0.9.1 h1:hhHn7U9MMLCOVxQS2o4yeXoJr+F2f7TwNt4OBbqSseI=
-github.com/adam000/goutils v0.9.1/go.mod h1:DYMOwiEQ647eUOePkIez0+1EBRk6XpGG0T+6uhh/APQ=
+github.com/adam000/goutils v0.13.1 h1:+oWZXWGDObLbVeHCbyaroEoLxRvqEbGev4JyVP/jO5Y=
+github.com/adam000/goutils v0.13.1/go.mod h1:Q5NZMZcIpZsFCkiiPf/lxwo7Nla8yXWSFZANXrpFK04=
 github.com/aymerick/douceur v0.2.0 h1:Mv+mAeH1Q+n9Fr+oyamOlAkUNPWPlA8PPGR0QAaYuPk=
 github.com/aymerick/douceur v0.2.0/go.mod h1:wlT5vV2O3h55X9m7iVYN0TBM0NH/MmbLnd30/FjWUq4=
 github.com/gorilla/css v1.0.0 h1:BQqNyPTi50JCFMTw/b67hByjMVXZRwGha6wxVGkeihY=
@@ -8,5 +8,5 @@ github.com/microcosm-cc/bluemonday v1.0.24 h1:NGQoPtwGVcbGkKfvyYk1yRqknzBuoMiUrO
 github.com/microcosm-cc/bluemonday v1.0.24/go.mod h1:ArQySAMps0790cHSkdPEJ7bGkF2VePWH773hsJNSHf8=
 github.com/russross/blackfriday v1.6.0 h1:KqfZb0pUVN2lYqZUYRddxF4OR8ZMURnJIG5Y3VRLtww=
 github.com/russross/blackfriday v1.6.0/go.mod h1:ti0ldHuxg49ri4ksnFxlkCfN+hvslNlmVHqNRXXJNAY=
-golang.org/x/net v0.36.0 h1:vWF2fRbw4qslQsQzgFqZff+BItCvGFQqKzKIzx1rmoA=
-golang.org/x/net v0.36.0/go.mod h1:bFmbeoIPfrw4sMHNhb4J9f6+tPziuGjq7Jk/38fxi1I=
+golang.org/x/net v0.38.0 h1:vRMAPTMaeGqVhG5QyLJHqNDwecKTomGeqbnfZyKlBI8=
+golang.org/x/net v0.38.0/go.mod h1:ivrbrMbzFq5J41QOQh0siUuly180yBYtLp+CKbEaFx8=
