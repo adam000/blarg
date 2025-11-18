@@ -1,9 +1,9 @@
 module github.com/adam000/blarg
 
-go 1.24.5
+go 1.25.3
 
 require (
-	github.com/adam000/goutils v0.13.1
+	github.com/adam000/goutils v0.14.0
 	github.com/microcosm-cc/bluemonday v1.0.24
 	github.com/russross/blackfriday v1.6.0
 )

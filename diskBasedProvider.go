@@ -121,7 +121,9 @@ func (p DiskBasedProvider) serveChangelog(w http.ResponseWriter, r *http.Request
 		output.Write([]byte{10, 10})
 	}
 
-	htmlResult := template.HTML(bluemonday.UGCPolicy().SanitizeBytes(blackfriday.MarkdownCommon(output.Bytes())))
+	policy := bluemonday.UGCPolicy()
+	policy.AllowAttrs("class").Matching(bluemonday.SpaceSeparatedTokens).OnElements("code", "pre")
+	htmlResult := template.HTML(policy.SanitizeBytes(blackfriday.MarkdownCommon(output.Bytes())))
 
 	// TODO some of this is specific to my website. Abstract it out.
 	var page = page.NewPage()
@@ -146,22 +148,32 @@ func (p DiskBasedProvider) serveMd(w http.ResponseWriter, r *http.Request, mdPat
 		p.errorHandler(w, r, http.StatusInternalServerError)
 	}
 
-	htmlResult := template.HTML(bluemonday.UGCPolicy().SanitizeBytes(blackfriday.MarkdownCommon(markdown)))
+	policy := bluemonday.UGCPolicy()
+	policy.AllowAttrs("class").Matching(bluemonday.SpaceSeparatedTokens).OnElements("code", "pre")
+	htmlResult := template.HTML(policy.SanitizeBytes(blackfriday.MarkdownCommon(markdown)))
 
 	// TODO some of this is specific to my website. Abstract it out.
-	var page = page.NewPage()
-	page.SetTitle("Blarg")
-	page.SetSiteTitle("adam0.net - blarg")
-	page.AddCssFiles(
+	var pg = page.NewPage()
+	pg.SetTitle("Blarg")
+	pg.SetSiteTitle("adam0.net - blarg")
+	pg.AddCssFiles(
 		"/static/css/base.css",
 		"/static/css/header.css",
 		"/static/css/blarg-file.css",
 		"https://fonts.googleapis.com/css?family=Inconsolata:400,700",
 		"https://fonts.googleapis.com/css?family=Roboto",
+		"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css",
 	)
-	page.AddVar("Content", htmlResult)
-	page.AddVar("FileName", strings.TrimSuffix(filepath.Base(mdPath), filepath.Ext(mdPath)))
-	p.templates.ExecuteTemplate(w, "page_blarg_file.html", page)
+	pg.AddJsFiles(
+		"/static/js/blarg_code.js",
+	)
+	pg.AddJsFile(page.Import{
+		Url:    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js",
+		SriSha: "sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw==",
+	})
+	pg.AddVar("Content", htmlResult)
+	pg.AddVar("FileName", strings.TrimSuffix(filepath.Base(mdPath), filepath.Ext(mdPath)))
+	p.templates.ExecuteTemplate(w, "page_blarg_file.html", pg)
 }
 
 func Exists(path string) (bool, error) {

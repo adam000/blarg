@@ -1,5 +1,5 @@
-github.com/adam000/goutils v0.13.1 h1:+oWZXWGDObLbVeHCbyaroEoLxRvqEbGev4JyVP/jO5Y=
-github.com/adam000/goutils v0.13.1/go.mod h1:Q5NZMZcIpZsFCkiiPf/lxwo7Nla8yXWSFZANXrpFK04=
+github.com/adam000/goutils v0.14.0 h1:p7P7js8zXS/x41K1IgmCMvfL9lsZnqLiOnWKQH72TEM=
+github.com/adam000/goutils v0.14.0/go.mod h1:+vU4XmnY0/PONLhUAOcUpFWkIc89fpxIf0SUo3nPQtQ=
 github.com/aymerick/douceur v0.2.0 h1:Mv+mAeH1Q+n9Fr+oyamOlAkUNPWPlA8PPGR0QAaYuPk=
 github.com/aymerick/douceur v0.2.0/go.mod h1:wlT5vV2O3h55X9m7iVYN0TBM0NH/MmbLnd30/FjWUq4=
 github.com/gorilla/css v1.0.0 h1:BQqNyPTi50JCFMTw/b67hByjMVXZRwGha6wxVGkeihY=
