@@ -162,8 +162,11 @@ func (p DiskBasedProvider) serveMd(w http.ResponseWriter, r *http.Request, mdPat
 		"/static/css/blarg-file.css",
 		"https://fonts.googleapis.com/css?family=Inconsolata:400,700",
 		"https://fonts.googleapis.com/css?family=Roboto",
-		"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css",
 	)
+	pg.AddCssFile(page.Import{
+		Url:    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css",
+		SriSha: "sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA==",
+	})
 	pg.AddJsFiles(
 		"/static/js/blarg_code.js",
 	)
