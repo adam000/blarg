@@ -6,6 +6,7 @@ require (
 	github.com/adam000/goutils v0.14.0
 	github.com/microcosm-cc/bluemonday v1.0.24
 	github.com/russross/blackfriday v1.6.0
+	golang.org/x/text v0.33.0
 )
 
 require (

@@ -12,6 +12,9 @@ import (
 	"path/filepath"
 	"strings"
 
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+
 	"github.com/adam000/blarg/rule"
 	"github.com/adam000/goutils/page"
 	"github.com/microcosm-cc/bluemonday"
@@ -152,9 +155,14 @@ func (p DiskBasedProvider) serveMd(w http.ResponseWriter, r *http.Request, mdPat
 	policy.AllowAttrs("class").Matching(bluemonday.SpaceSeparatedTokens).OnElements("code", "pre")
 	htmlResult := template.HTML(policy.SanitizeBytes(blackfriday.MarkdownCommon(markdown)))
 
+	basename := strings.TrimSuffix(filepath.Base(mdPath), filepath.Ext(mdPath))
+	log.Printf("Basename: %s", basename)
+	title := strings.ReplaceAll(basename, "-", " ")
+	title = cases.Title(language.English).String(title)
+
 	// TODO some of this is specific to my website. Abstract it out.
 	var pg = page.NewPage()
-	pg.SetTitle("Blarg")
+	pg.SetTitle("Blarg - " + title)
 	pg.SetSiteTitle("adam0.net - blarg")
 	pg.AddCssFiles(
 		"/static/css/base.css",
@@ -175,7 +183,7 @@ func (p DiskBasedProvider) serveMd(w http.ResponseWriter, r *http.Request, mdPat
 		SriSha: "sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw==",
 	})
 	pg.AddVar("Content", htmlResult)
-	pg.AddVar("FileName", strings.TrimSuffix(filepath.Base(mdPath), filepath.Ext(mdPath)))
+	pg.AddVar("FileName", title)
 	p.templates.ExecuteTemplate(w, "page_blarg_file.html", pg)
 }
 
